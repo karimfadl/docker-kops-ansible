@@ -1,0 +1,18 @@
+---
+- s3_bucket:
+    name: "{{ state_store | replace('s3://', '') }}"
+    state: present
+    region: "{{ aws_region }}"
+    versioning: no
+    tags:
+      Name: "{{ state_store | replace('s3://', '') }}"
+      Owner: "{{ tag_owner }}"
+      Application: "{{ tag_application }}"
+      Environment: "{{ tag_environment }}"
+
+
+- name: Configure K8s Cluster
+  shell: "kops create cluster --name={{ cluster_name }} --state={{ state_store }} --zones={{ aws_zones }} --node-count={{ node_count }} --node-size={{ node_size }} --master-size={{ master_size }} --dns-zone={{ dns_zone }}"
+
+- name: Create K8s Cluster
+  shell: "kops update cluster {{ cluster_name }}  --state={{ state_store }} --yes"

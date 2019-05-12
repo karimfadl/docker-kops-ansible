@@ -1,0 +1,48 @@
+---
+- name: Install EPEL Repo
+  yum: name=epel-release state=present
+
+- name: Update The System Packages
+  yum: name=* state=latest update_cache=yes
+
+- name: required packages
+  yum: name={{ item }} state=present
+  with_items:
+      - vim
+      - wget
+      - git
+      - python-pip
+
+- name: Install Boto
+  pip: name={{ item }} state=latest
+  with_items:
+      - boto
+      - boto3
+
+- name: Install AWS CLI
+  pip: name=awscli state=latest
+
+- name: Create .aws directory under user home for AWS CLI config 
+  file:  
+    path: /root/.aws
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy AWS CLI config and credentials to machine using templates
+  template:  
+    src: "roles/system/templates/{{item}}.j2"
+    dest: /root/.aws/{{item}}
+    mode: 0664
+    owner: root
+    group: root
+  with_items:
+    - config
+    - credentials
+
+- name: Generate SSH keys
+  shell: ssh-keygen -b 2048 -t rsa -f /root/.ssh/id_rsa -q -N ""
+  args:
+    creates: /root/.ssh/id_rsa
+

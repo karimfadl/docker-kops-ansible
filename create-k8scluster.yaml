@@ -1,0 +1,9 @@
+---
+- name: Deploy K8s Cluster on AWS by kops and Ansible
+  hosts: localhost
+  become: yes
+  roles:
+    - system
+    - kubectl
+    - kops
+    - create-k8scluster

@@ -1,0 +1,39 @@
+---
+#AWS Config
+aws_region: ap-southeast-1	
+
+aws_access_key: xxxxxxxxxxxxxxxxxx
+
+aws_secret_key: xxxxxxxxxxxxxxxxxx
+
+
+#kubectl Config
+kubectl_download_path: "https://storage.googleapis.com/kubernetes-release/release/v1.14.0/bin/linux/amd64/kubectl"
+
+
+#kops Config
+kops_download_path: "https://github.com/kubernetes/kops/releases/download/1.11.1/kops-linux-amd64"
+
+
+#Cluster Config
+cluster_name: k8s.karimlabs.com
+
+state_store: s3://xxxxxxxxxxxxxxxxxx
+
+aws_zones: ap-southeast-1a
+
+dns_zone: k8s.karimlabs.com
+
+master_size: t2.micro
+
+node_size: t2.micro
+
+node_count: 2
+
+
+#Tags
+tag_owner: Karim Fadl
+
+tag_application: MyApp
+
+tag_environment: Development

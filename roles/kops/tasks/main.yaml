@@ -1,0 +1,9 @@
+---
+- name: Download Kops binaries
+  get_url:
+    url: "{{ kops_download_path }}"
+    dest: /usr/local/sbin/kops
+    owner: root
+    group: root
+    mode: 0755
+    force: yes

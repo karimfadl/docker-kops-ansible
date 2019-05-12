@@ -1,0 +1,14 @@
+---
+- name: Delete the cluster
+  shell: "kops delete cluster {{ cluster_name }} --state {{ state_store }} --yes"
+
+- s3_bucket:
+    name: "{{ state_store | replace('s3://', '') }}"
+    state: absent
+    region: "{{ aws_region }}"
+    versioning: no
+    tags:
+      Name: "{{ state_store | replace('s3://', '') }}"
+      Owner: "{{ tag_owner }}"
+      Application: "{{ tag_application }}"
+      Environment: "{{ tag_environment }}"

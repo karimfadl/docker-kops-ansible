@@ -1,0 +1,10 @@
+---
+# Install Kubectl
+- name: Download Kubectl binaries
+  get_url:
+    url: "{{ kubectl_download_path }}"
+    dest: /usr/local/sbin
+    owner: root
+    group: root
+    mode: 0755
+    force: yes

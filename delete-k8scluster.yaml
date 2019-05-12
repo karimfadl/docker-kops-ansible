@@ -1,0 +1,5 @@
+---
+- name: Delete K8s Cluster
+  hosts: localhost
+  roles:
+    - delete-k8scluster
